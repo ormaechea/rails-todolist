@@ -6,19 +6,24 @@
 
   <div class="task-container">
 <% @tasks.each do |task| %>
-  <div class="task">
+
+ <%= form_for task do |f| %>
+
+  <div class="task" id=<%=task.id%>>
       <tr>
-       <%if task.completed === true%>
-           <input type="checkbox" class="checkbox" checked>
+       <%if task.completed == true%>
+          <td> <input type="checkbox" class="checkbox" name="completed" checked></td>
         <%else%>
-            <input type="checkbox" class="checkbox">
+           <td> <input type="checkbox" class="checkbox" name="completed"></td>
         <%end%>
-         <td><%=task.name%></td>
+
+         <td><%= task.name %></td>
          <td><%= link_to "edit", edit_task_path(task) %></td>
          <td><%= link_to 'Delete', task_path(task),
               method: :delete,
               data: { confirm: 'Are you sure?' } %></td>
       </tr>
   </div>
-<% end %>
+ <% end %>
+<%end%>
 </div>

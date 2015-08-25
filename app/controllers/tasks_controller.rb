@@ -35,14 +35,15 @@ class TasksController < ApplicationController
   end
 
   def update
-    puts "HEYYYYY UPDATE *************"
     p params
     p task_params
     @task = Task.find(params[:id])
+   #This is another way of doing it. Being specific of what parameters to update with key and value.
+    #@task.update(:name => params[:name], :completed => params[:completed])
     @task.update(task_params)
     respond_to do |x|
       x.json { render json: @task}
-      x.html # index.html.erb
+      x.html { redirect_to tasks_path}
     end
 
 
@@ -61,5 +62,7 @@ class TasksController < ApplicationController
       #NEED TO FIX THIS SECURITY SHIT. Now I Know why people talk about rails freaking security.
       params.permit(:name, :completed, :id)
     end
+
+
 
 end
