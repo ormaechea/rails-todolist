@@ -23,8 +23,6 @@ class TasksController < ApplicationController
   end
 
   def edit
-    puts "HEYYYYY UPDATE *************"
-    p params
     @task = Task.find(params[:id])
   end
 
