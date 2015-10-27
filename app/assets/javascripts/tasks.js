@@ -10,13 +10,24 @@ $( window ).load(function() {
 
 
 var button_listener =  function() {
+  //$(".task-container" ).on('click','.checkbox',function(event)
 
-  $(".task-container" ).on('click','.checkbox',function(event) {
+  $(".checkbox " ).on('click',function(event) {
+  var data = $(this).parents("form").serialize() + "&completed=" + $(this).is(':checked')
+  var url = "http://localhost:3000/tasks/" + $(this).parent().attr('id');
+  var type = "PUT";
 
- console.log("CLICKED MOTHERGUCK");
+  $.ajax({
+    url: url,
+    type: type,
+    data: data,
+    dataType: "json"
+  }).done(function(response){
 
- event.preventDefault();
+    console.log(response)
 
+  });
 });
-
 }
+
+

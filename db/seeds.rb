@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 
- 20.times do
+ 10.times do
    Task.create(name: Faker::Hacker.adjective , completed: false)
  end
 

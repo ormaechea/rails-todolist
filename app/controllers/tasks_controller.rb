@@ -8,6 +8,8 @@ class TasksController < ApplicationController
     end
   end
 
+
+
   def show
     @task = Task.find(params[:id])
     respond_to do |x|
@@ -21,28 +23,35 @@ class TasksController < ApplicationController
   end
 
   def edit
-    puts "HEYYYYY UPDATE *************"
-    p params
     @task = Task.find(params[:id])
   end
 
   def create
-    puts "*************"
-    p params
+   if params[:task]
+      params[:task].each do |key, value|
+        params[key] = value
+      end
+    end
     @task = Task.create(task_params)
     @task.save
-    render :json => @task
+     respond_to do |x|
+      x.json { render json: @task}
+      x.html { redirect_to tasks_path}
+    end
   end
 
   def update
-    puts "HEYYYYY UPDATE *************"
-    p params
-    p task_params
+#here we re-organize the params if they are sent from a form (web) so that it works regardless where the request is coming
+    if params[:task]
+      params[:task].each do |key, value|
+        params[key] = value
+      end
+    end
     @task = Task.find(params[:id])
     @task.update(task_params)
     respond_to do |x|
       x.json { render json: @task}
-      x.html # index.html.erb
+      x.html { redirect_to tasks_path}
     end
 
 
@@ -61,5 +70,7 @@ class TasksController < ApplicationController
       #NEED TO FIX THIS SECURITY. Now I Know why people talk about rails security.
       params.permit(:name, :completed, :id)
     end
+
+
 
 end
