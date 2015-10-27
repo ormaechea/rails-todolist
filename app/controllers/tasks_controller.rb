@@ -67,7 +67,7 @@ class TasksController < ApplicationController
   private
     def task_params
       #params.require(:task).permit(:name, :completed)
-      #NEED TO FIX THIS SECURITY SHIT. Now I Know why people talk about rails freaking security.
+      #NEED TO FIX THIS SECURITY. Now I Know why people talk about rails security.
       params.permit(:name, :completed, :id)
     end
 
